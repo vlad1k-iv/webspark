@@ -29,16 +29,18 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   Future<void> getTasks() async {
-    emit(
-      state.copyWith(
-        isLoading: true,
-      ),
-    );
-
     final isUrlGet = await checkUrlSupportsGetParameters(state.url);
+
+    emitPercent(10);
 
     if (isUrlGet) {
       final response = await _listTasksUseCase.execute();
+
+      emitPercent(40);
+
+      await Future.delayed(
+        const Duration(seconds: 2),
+      );
 
       response.fold(
         (l) => emit(
@@ -76,12 +78,12 @@ class HomePageCubit extends Cubit<HomePageState> {
                   ),
                 ),
               );
+              emitPercent(state.percentIndicator + 30);
             }
           }
 
           emit(
             state.copyWith(
-              isLoading: false,
               isReady: true,
               listResultTasks: listResultTasks,
             ),
@@ -111,5 +113,23 @@ class HomePageCubit extends Cubit<HomePageState> {
 
       response.fold((l) => null, (r) {});
     }
+  }
+
+  void emitPercent(int percent) {
+    emit(
+      state.copyWith(
+        percentIndicator: percent,
+      ),
+    );
+  }
+
+  void onPop() {
+    emit(
+      state.copyWith(
+        isReady: false,
+        isLoading: false,
+        percentIndicator: 0,
+      ),
+    );
   }
 }

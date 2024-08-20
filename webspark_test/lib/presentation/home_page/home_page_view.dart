@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:webspark_test/core/extensions.dart';
 import 'package:webspark_test/core/functions.dart';
+import 'package:webspark_test/core/navigation/route_manager.dart';
 import 'package:webspark_test/presentation/home_page/bloc/home_page_cubit.dart';
 import 'package:webspark_test/presentation/home_page/bloc/home_page_state.dart';
 import 'package:webspark_test/presentation/resources/colors_manager.dart';
@@ -18,8 +19,6 @@ class HomePageView extends StatefulWidget {
 class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<HomePageCubit>();
-
     return GestureDetector(
       onTap: () {
         unFocus(context);
@@ -37,27 +36,7 @@ class _HomePageViewState extends State<HomePageView> {
       }, listenWhen: (prev, current) {
         return prev.error != current.error;
       }, builder: (context, state) {
-        if (state.isLoading) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
-
-        if (state.isReady) {
-          return Scaffold(
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CircularProgressIndicator(),
-                AppElevatedButton(
-                    onTap: () {
-                      cubit.sendResult();
-                    },
-                    text: 'Send result to server'),
-              ],
-            ),
-          );
-        }
+        final cubit = context.read<HomePageCubit>();
 
         return Scaffold(
           appBar: AppBar(
@@ -109,6 +88,10 @@ class _HomePageViewState extends State<HomePageView> {
                     height: 55,
                     child: AppElevatedButton(
                       onTap: () {
+                        Navigator.of(context).pushNamed(
+                          Routes.loadingPageRoute,
+                          arguments: cubit,
+                        );
                         cubit.getTasks();
                       },
                       text: 'Start counting proccess',

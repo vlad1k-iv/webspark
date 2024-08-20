@@ -17,9 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomePageState {
   bool get isLoading => throw _privateConstructorUsedError;
+  int get percentIndicator => throw _privateConstructorUsedError;
+  bool get isReady => throw _privateConstructorUsedError;
   Failure? get error => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
-  bool get isReady => throw _privateConstructorUsedError;
   List<ResultTasks>? get listResultTasks => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,9 +36,10 @@ abstract class $HomePageStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
+      int percentIndicator,
+      bool isReady,
       Failure? error,
       String url,
-      bool isReady,
       List<ResultTasks>? listResultTasks});
 }
 
@@ -55,15 +57,24 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? percentIndicator = null,
+    Object? isReady = null,
     Object? error = freezed,
     Object? url = null,
-    Object? isReady = null,
     Object? listResultTasks = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      percentIndicator: null == percentIndicator
+          ? _value.percentIndicator
+          : percentIndicator // ignore: cast_nullable_to_non_nullable
+              as int,
+      isReady: null == isReady
+          ? _value.isReady
+          : isReady // ignore: cast_nullable_to_non_nullable
               as bool,
       error: freezed == error
           ? _value.error
@@ -73,10 +84,6 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      isReady: null == isReady
-          ? _value.isReady
-          : isReady // ignore: cast_nullable_to_non_nullable
-              as bool,
       listResultTasks: freezed == listResultTasks
           ? _value.listResultTasks
           : listResultTasks // ignore: cast_nullable_to_non_nullable
@@ -95,9 +102,10 @@ abstract class _$$HomePageStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
+      int percentIndicator,
+      bool isReady,
       Failure? error,
       String url,
-      bool isReady,
       List<ResultTasks>? listResultTasks});
 }
 
@@ -113,15 +121,24 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? percentIndicator = null,
+    Object? isReady = null,
     Object? error = freezed,
     Object? url = null,
-    Object? isReady = null,
     Object? listResultTasks = freezed,
   }) {
     return _then(_$HomePageStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      percentIndicator: null == percentIndicator
+          ? _value.percentIndicator
+          : percentIndicator // ignore: cast_nullable_to_non_nullable
+              as int,
+      isReady: null == isReady
+          ? _value.isReady
+          : isReady // ignore: cast_nullable_to_non_nullable
               as bool,
       error: freezed == error
           ? _value.error
@@ -131,10 +148,6 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      isReady: null == isReady
-          ? _value.isReady
-          : isReady // ignore: cast_nullable_to_non_nullable
-              as bool,
       listResultTasks: freezed == listResultTasks
           ? _value._listResultTasks
           : listResultTasks // ignore: cast_nullable_to_non_nullable
@@ -148,9 +161,10 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
 class _$HomePageStateImpl implements _HomePageState {
   const _$HomePageStateImpl(
       {this.isLoading = false,
+      this.percentIndicator = 0,
+      this.isReady = false,
       this.error,
       this.url = 'https://flutter.webspark.dev/flutter/api',
-      this.isReady = false,
       final List<ResultTasks>? listResultTasks})
       : _listResultTasks = listResultTasks;
 
@@ -158,13 +172,16 @@ class _$HomePageStateImpl implements _HomePageState {
   @JsonKey()
   final bool isLoading;
   @override
+  @JsonKey()
+  final int percentIndicator;
+  @override
+  @JsonKey()
+  final bool isReady;
+  @override
   final Failure? error;
   @override
   @JsonKey()
   final String url;
-  @override
-  @JsonKey()
-  final bool isReady;
   final List<ResultTasks>? _listResultTasks;
   @override
   List<ResultTasks>? get listResultTasks {
@@ -177,7 +194,7 @@ class _$HomePageStateImpl implements _HomePageState {
 
   @override
   String toString() {
-    return 'HomePageState(isLoading: $isLoading, error: $error, url: $url, isReady: $isReady, listResultTasks: $listResultTasks)';
+    return 'HomePageState(isLoading: $isLoading, percentIndicator: $percentIndicator, isReady: $isReady, error: $error, url: $url, listResultTasks: $listResultTasks)';
   }
 
   @override
@@ -187,15 +204,23 @@ class _$HomePageStateImpl implements _HomePageState {
             other is _$HomePageStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.percentIndicator, percentIndicator) ||
+                other.percentIndicator == percentIndicator) &&
+            (identical(other.isReady, isReady) || other.isReady == isReady) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.url, url) || other.url == url) &&
-            (identical(other.isReady, isReady) || other.isReady == isReady) &&
             const DeepCollectionEquality()
                 .equals(other._listResultTasks, _listResultTasks));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, error, url, isReady,
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      percentIndicator,
+      isReady,
+      error,
+      url,
       const DeepCollectionEquality().hash(_listResultTasks));
 
   @JsonKey(ignore: true)
@@ -208,19 +233,22 @@ class _$HomePageStateImpl implements _HomePageState {
 abstract class _HomePageState implements HomePageState {
   const factory _HomePageState(
       {final bool isLoading,
+      final int percentIndicator,
+      final bool isReady,
       final Failure? error,
       final String url,
-      final bool isReady,
       final List<ResultTasks>? listResultTasks}) = _$HomePageStateImpl;
 
   @override
   bool get isLoading;
   @override
+  int get percentIndicator;
+  @override
+  bool get isReady;
+  @override
   Failure? get error;
   @override
   String get url;
-  @override
-  bool get isReady;
   @override
   List<ResultTasks>? get listResultTasks;
   @override

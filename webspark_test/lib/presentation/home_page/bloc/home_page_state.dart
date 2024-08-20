@@ -8,9 +8,10 @@ part 'home_page_state.freezed.dart';
 class HomePageState with _$HomePageState {
   const factory HomePageState({
     @Default(false) bool isLoading,
+    @Default(0) int percentIndicator,
+    @Default(false) bool isReady,
     Failure? error,
     @Default('https://flutter.webspark.dev/flutter/api') String url,
-    @Default(false) bool isReady,
     List<ResultTasks>? listResultTasks,
   }) = _HomePageState;
 }
