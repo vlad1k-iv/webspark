@@ -2,43 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:webspark_test/presentation/resources/colors_manager.dart';
 
 class TextStyles {
-  static TextStyle titleSmall = const TextStyle(
+  static const TextStyle titleSmall = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: ColorsManager.black,
   );
 
-  static TextStyle titleMedium = const TextStyle(
+  static const TextStyle titleMedium = TextStyle(
     fontSize: 22,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
     color: ColorsManager.black,
   );
 
-  static TextStyle titleLarge = const TextStyle(
+  static const TextStyle titleLarge = TextStyle(
     fontWeight: FontWeight.w400,
     fontSize: 32,
     color: ColorsManager.black,
   );
 
-  static TextStyle bodyMedium = const TextStyle(
+  static const TextStyle bodyMedium = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.w400,
-    color: ColorsManager.black,
+    fontWeight: FontWeight.w600,
+    color: ColorsManager.darkGray,
   );
 
-  static TextStyle bodySmall = const TextStyle(
+  static const TextStyle bodySmall = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
     color: ColorsManager.black,
   );
 
-  static TextStyle displaySmall = const TextStyle(
+  static const TextStyle displaySmall = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: ColorsManager.black,
   );
 
-  static TextStyle displayLarge = const TextStyle(
+  static const TextStyle displayLarge = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: ColorsManager.black,
