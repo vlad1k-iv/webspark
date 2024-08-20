@@ -3,8 +3,8 @@ import 'package:webspark_test/presentation/resources/colors_manager.dart';
 
 class TextStyles {
   static const TextStyle titleSmall = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
     color: ColorsManager.black,
   );
 

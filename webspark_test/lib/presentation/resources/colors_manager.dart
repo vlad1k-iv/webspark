@@ -4,6 +4,7 @@ class ColorsManager {
   static const Color main = Color(0xFF41C4FF);
   static const Color darkMain = Color(0xFF448BFF);
   static const Color gray = Color(0xFF898989);
+  static const Color lightGray = Color(0xFFE2E2E2);
   static const Color saladGreen = Color(0xFF4CAF50);
   static const Color green = Color(0xFF009688);
   static const Color turquoise = Color(0xFF64FFDA);

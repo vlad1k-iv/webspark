@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:webspark_test/core/functions.dart';
@@ -100,7 +101,9 @@ class HomePageCubit extends Cubit<HomePageState> {
     }
   }
 
-  Future<void> sendResult() async {
+  Future<void> sendResult(
+    VoidCallback onSuccess,
+  ) async {
     if (state.listResultTasks?.isNotEmpty ?? false) {
       emit(
         state.copyWith(
@@ -111,7 +114,9 @@ class HomePageCubit extends Cubit<HomePageState> {
       final response =
           await _sendResultTasksUseCase.execute(state.listResultTasks!);
 
-      response.fold((l) => null, (r) {});
+      response.fold((l) => null, (r) {
+        onSuccess();
+      });
     }
   }
 

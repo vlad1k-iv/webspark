@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:webspark_test/core/extensions.dart';
+import 'package:webspark_test/core/navigation/route_manager.dart';
 import 'package:webspark_test/presentation/home_page/bloc/home_page_cubit.dart';
 import 'package:webspark_test/presentation/home_page/bloc/home_page_state.dart';
 import 'package:webspark_test/presentation/resources/colors_manager.dart';
@@ -93,7 +94,12 @@ class _LoadingPageState extends State<LoadingPage> {
                         width: context.screenWidth - 32,
                         child: AppElevatedButton(
                           onTap: () {
-                            cubit.sendResult();
+                            cubit.sendResult(() {
+                              Navigator.of(context).pushNamed(
+                                Routes.resultsPageRoute,
+                                arguments: state.listResultTasks,
+                              );
+                            });
                           },
                           text: 'Send results to server',
                         ),
