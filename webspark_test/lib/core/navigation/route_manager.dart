@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:webspark_test/core/di/di.dart';
+import 'package:webspark_test/presentation/home_page/bloc/home_page_cubit.dart';
 import 'package:webspark_test/presentation/home_page/home_page_view.dart';
 
 class Routes {
@@ -13,7 +16,10 @@ class RouteGenerator {
     switch (routeSettings.name) {
       case Routes.hompePageRoute:
         return MaterialPageRoute<HomePageView>(
-          builder: (_) => const HomePageView(),
+          builder: (_) => BlocProvider(
+            create: (context) => locator.get<HomePageCubit>(),
+            child: const HomePageView(),
+          ),
         );
 
       default:

@@ -9,7 +9,7 @@ class AppElevatedButton extends StatelessWidget {
     super.key,
   });
   final String text;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {

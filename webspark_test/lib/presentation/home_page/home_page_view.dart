@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:webspark_test/core/extensions.dart';
 import 'package:webspark_test/core/functions.dart';
+import 'package:webspark_test/presentation/home_page/bloc/home_page_cubit.dart';
+import 'package:webspark_test/presentation/home_page/bloc/home_page_state.dart';
 import 'package:webspark_test/presentation/resources/colors_manager.dart';
 import 'package:webspark_test/presentation/resources/text_styles.dart';
 import 'package:webspark_test/presentation/widgets/app_elevated_button.dart';
@@ -13,70 +16,110 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
-  final _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<HomePageCubit>();
+
     return GestureDetector(
       onTap: () {
         unFocus(context);
       },
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: false,
-          title: const Text(
-            'Home screen',
-          ),
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
+      child: BlocConsumer<HomePageCubit, HomePageState>(listener: (
+        context,
+        state,
+      ) {
+        if (state.error?.message.isNotEmpty ?? false) {
+          showScaffoldSnackBar(
+            context: context,
+            error: state.error!.message,
+          );
+        }
+      }, listenWhen: (prev, current) {
+        return prev.error != current.error;
+      }, builder: (context, state) {
+        if (state.isLoading) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        if (state.isReady) {
+          return Scaffold(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Set valid API base URL in order to continue',
-                  style: TextStyles.bodyMedium,
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(
-                      Icons.compare_arrows_rounded,
-                      size: 30,
-                      color: ColorsManager.gray,
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: TextField(
-                        decoration: const InputDecoration(hintText: 'Link'),
-                        controller: _controller,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const Spacer(),
-                SizedBox(
-                  width: context.screenWidth - 32,
-                  height: 55,
-                  child: AppElevatedButton(
-                    onTap: () {},
-                    text: 'Start counting proccess',
-                  ),
-                ),
+                const CircularProgressIndicator(),
+                AppElevatedButton(
+                    onTap: () {
+                      cubit.sendResult();
+                    },
+                    text: 'Send result to server'),
               ],
             ),
+          );
+        }
+
+        return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: false,
+            title: const Text(
+              'Home screen',
+            ),
           ),
-        ),
-      ),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const Text(
+                    'Set valid API base URL in order to continue',
+                    style: TextStyles.bodyMedium,
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Icon(
+                        Icons.compare_arrows_rounded,
+                        size: 30,
+                        color: ColorsManager.gray,
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          onChanged: cubit.emitUrl,
+                          initialValue:
+                              'https://flutter.webspark.dev/flutter/api',
+                          decoration: const InputDecoration(hintText: 'Link'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: context.screenWidth - 32,
+                    height: 55,
+                    child: AppElevatedButton(
+                      onTap: () {
+                        cubit.getTasks();
+                      },
+                      text: 'Start counting proccess',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }
