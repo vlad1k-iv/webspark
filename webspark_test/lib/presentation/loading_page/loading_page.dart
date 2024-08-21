@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:webspark_test/core/extensions.dart';
+import 'package:webspark_test/core/navigation/route_manager.dart';
 import 'package:webspark_test/presentation/home_page/bloc/home_page_cubit.dart';
 import 'package:webspark_test/presentation/home_page/bloc/home_page_state.dart';
 import 'package:webspark_test/presentation/resources/colors_manager.dart';
@@ -23,7 +24,7 @@ class _LoadingPageState extends State<LoadingPage> {
       final cubit = context.read<HomePageCubit>();
 
       return IgnorePointer(
-        ignoring: !state.isReady,
+        ignoring: state.isLoading,
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -93,7 +94,15 @@ class _LoadingPageState extends State<LoadingPage> {
                         width: context.screenWidth - 32,
                         child: AppElevatedButton(
                           onTap: () {
-                            cubit.sendResult();
+                            cubit.sendResult(onSuccess: () {
+                              Navigator.of(context).pushNamed(
+                                Routes.resultsPageRoute,
+                                arguments: state.gridResultItems,
+                              );
+                            }, onError: () {
+                              cubit.onPop();
+                              Navigator.of(context).pop();
+                            });
                           },
                           text: 'Send results to server',
                         ),

@@ -19,18 +19,40 @@ class MainRepositoryImpl extends Repository {
     try {
       final response = await _remoteDataSource.getListTasks();
 
-      return Right(response);
+      if (response.error) {
+        return Left(
+          Failure(
+            400,
+            response.message,
+          ),
+        );
+      } else {
+        return Right(response);
+      }
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }
   }
 
   @override
-  Future<Either<Failure, ResultTasksResponse>> resultTasks(List<ResultTasks> tasks) async {
+  Future<Either<Failure, ResultTasksResponse>> resultTasks(
+    List<ResultTasks> input,
+  ) async {
     try {
-      final response = await _remoteDataSource.resultTasks(tasks);
+      final response = await _remoteDataSource.resultTasks(
+        input,
+      );
 
-      return Right(response);
+      if ((response.error ?? false)) {
+        return Left(
+          Failure(
+            400,
+            response.message ?? 'Unknown error',
+          ),
+        );
+      } else {
+        return Right(response);
+      }
     } catch (error) {
       return Left(ErrorHandler.handle(error).failure);
     }

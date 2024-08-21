@@ -51,9 +51,12 @@ class _HomePageViewState extends State<HomePageView> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  const Text(
-                    'Set valid API base URL in order to continue',
-                    style: TextStyles.bodyMedium,
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Set valid API base URL in order to continue',
+                      style: TextStyles.bodyMedium,
+                    ),
                   ),
                   const SizedBox(
                     height: 32,
@@ -64,16 +67,17 @@ class _HomePageViewState extends State<HomePageView> {
                       const Icon(
                         Icons.compare_arrows_rounded,
                         size: 30,
-                        color: ColorsManager.gray,
+                        color: ColorsManager.grey,
                       ),
                       const SizedBox(
                         width: 16,
                       ),
                       Expanded(
-                        child: TextFormField(
+                        child: TextField(
+                          enableSuggestions: false,
+                          autocorrect: false,
+                          keyboardType: TextInputType.url,
                           onChanged: cubit.emitUrl,
-                          initialValue:
-                              'https://flutter.webspark.dev/flutter/api',
                           decoration: const InputDecoration(hintText: 'Link'),
                         ),
                       ),
@@ -87,13 +91,17 @@ class _HomePageViewState extends State<HomePageView> {
                     width: context.screenWidth - 32,
                     height: 55,
                     child: AppElevatedButton(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          Routes.loadingPageRoute,
-                          arguments: cubit,
-                        );
-                        cubit.getTasks();
-                      },
+                      onTap: state.isUrlLengthValid
+                          ? () {
+                              Navigator.of(context).pushNamed(
+                                Routes.loadingPageRoute,
+                                arguments: cubit,
+                              );
+                              cubit.getTasks(() {
+                                Navigator.of(context).pop();
+                              });
+                            }
+                          : null,
                       text: 'Start counting proccess',
                     ),
                   ),

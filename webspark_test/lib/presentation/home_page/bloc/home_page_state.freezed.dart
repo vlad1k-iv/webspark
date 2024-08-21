@@ -22,6 +22,8 @@ mixin _$HomePageState {
   Failure? get error => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
   List<ResultTasks>? get listResultTasks => throw _privateConstructorUsedError;
+  List<GridResultItems>? get gridResultItems =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomePageStateCopyWith<HomePageState> get copyWith =>
@@ -40,7 +42,8 @@ abstract class $HomePageStateCopyWith<$Res> {
       bool isReady,
       Failure? error,
       String url,
-      List<ResultTasks>? listResultTasks});
+      List<ResultTasks>? listResultTasks,
+      List<GridResultItems>? gridResultItems});
 }
 
 /// @nodoc
@@ -62,6 +65,7 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
     Object? error = freezed,
     Object? url = null,
     Object? listResultTasks = freezed,
+    Object? gridResultItems = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -88,6 +92,10 @@ class _$HomePageStateCopyWithImpl<$Res, $Val extends HomePageState>
           ? _value.listResultTasks
           : listResultTasks // ignore: cast_nullable_to_non_nullable
               as List<ResultTasks>?,
+      gridResultItems: freezed == gridResultItems
+          ? _value.gridResultItems
+          : gridResultItems // ignore: cast_nullable_to_non_nullable
+              as List<GridResultItems>?,
     ) as $Val);
   }
 }
@@ -106,7 +114,8 @@ abstract class _$$HomePageStateImplCopyWith<$Res>
       bool isReady,
       Failure? error,
       String url,
-      List<ResultTasks>? listResultTasks});
+      List<ResultTasks>? listResultTasks,
+      List<GridResultItems>? gridResultItems});
 }
 
 /// @nodoc
@@ -126,6 +135,7 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
     Object? error = freezed,
     Object? url = null,
     Object? listResultTasks = freezed,
+    Object? gridResultItems = freezed,
   }) {
     return _then(_$HomePageStateImpl(
       isLoading: null == isLoading
@@ -152,6 +162,10 @@ class __$$HomePageStateImplCopyWithImpl<$Res>
           ? _value._listResultTasks
           : listResultTasks // ignore: cast_nullable_to_non_nullable
               as List<ResultTasks>?,
+      gridResultItems: freezed == gridResultItems
+          ? _value._gridResultItems
+          : gridResultItems // ignore: cast_nullable_to_non_nullable
+              as List<GridResultItems>?,
     ));
   }
 }
@@ -164,9 +178,11 @@ class _$HomePageStateImpl implements _HomePageState {
       this.percentIndicator = 0,
       this.isReady = false,
       this.error,
-      this.url = 'https://flutter.webspark.dev/flutter/api',
-      final List<ResultTasks>? listResultTasks})
-      : _listResultTasks = listResultTasks;
+      this.url = '',
+      final List<ResultTasks>? listResultTasks,
+      final List<GridResultItems>? gridResultItems})
+      : _listResultTasks = listResultTasks,
+        _gridResultItems = gridResultItems;
 
   @override
   @JsonKey()
@@ -192,9 +208,19 @@ class _$HomePageStateImpl implements _HomePageState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<GridResultItems>? _gridResultItems;
+  @override
+  List<GridResultItems>? get gridResultItems {
+    final value = _gridResultItems;
+    if (value == null) return null;
+    if (_gridResultItems is EqualUnmodifiableListView) return _gridResultItems;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'HomePageState(isLoading: $isLoading, percentIndicator: $percentIndicator, isReady: $isReady, error: $error, url: $url, listResultTasks: $listResultTasks)';
+    return 'HomePageState(isLoading: $isLoading, percentIndicator: $percentIndicator, isReady: $isReady, error: $error, url: $url, listResultTasks: $listResultTasks, gridResultItems: $gridResultItems)';
   }
 
   @override
@@ -210,7 +236,9 @@ class _$HomePageStateImpl implements _HomePageState {
             (identical(other.error, error) || other.error == error) &&
             (identical(other.url, url) || other.url == url) &&
             const DeepCollectionEquality()
-                .equals(other._listResultTasks, _listResultTasks));
+                .equals(other._listResultTasks, _listResultTasks) &&
+            const DeepCollectionEquality()
+                .equals(other._gridResultItems, _gridResultItems));
   }
 
   @override
@@ -221,7 +249,8 @@ class _$HomePageStateImpl implements _HomePageState {
       isReady,
       error,
       url,
-      const DeepCollectionEquality().hash(_listResultTasks));
+      const DeepCollectionEquality().hash(_listResultTasks),
+      const DeepCollectionEquality().hash(_gridResultItems));
 
   @JsonKey(ignore: true)
   @override
@@ -237,7 +266,8 @@ abstract class _HomePageState implements HomePageState {
       final bool isReady,
       final Failure? error,
       final String url,
-      final List<ResultTasks>? listResultTasks}) = _$HomePageStateImpl;
+      final List<ResultTasks>? listResultTasks,
+      final List<GridResultItems>? gridResultItems}) = _$HomePageStateImpl;
 
   @override
   bool get isLoading;
@@ -251,6 +281,8 @@ abstract class _HomePageState implements HomePageState {
   String get url;
   @override
   List<ResultTasks>? get listResultTasks;
+  @override
+  List<GridResultItems>? get gridResultItems;
   @override
   @JsonKey(ignore: true)
   _$$HomePageStateImplCopyWith<_$HomePageStateImpl> get copyWith =>

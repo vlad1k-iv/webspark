@@ -1,4 +1,3 @@
-import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:webspark_test/core/constants.dart';
 import 'package:webspark_test/core/di/di.dart';
@@ -6,6 +5,7 @@ import 'package:webspark_test/data/network/client.dart';
 import 'package:webspark_test/data/requests/result_tasks_request.dart';
 import 'package:webspark_test/data/responses/list_tasks_response.dart';
 import 'package:webspark_test/data/responses/result_tasks_response.dart';
+import 'package:retrofit/retrofit.dart';
 
 part 'api_container.g.dart';
 
