@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:webspark_test/data/requests/result_tasks_request.dart';
+import 'package:webspark_test/core/navigation/route_manager.dart';
+import 'package:webspark_test/domain/model/models.dart';
 import 'package:webspark_test/presentation/resources/colors_manager.dart';
 import 'package:webspark_test/presentation/resources/text_styles.dart';
 
@@ -8,7 +9,7 @@ class ResultListView extends StatefulWidget {
     required this.resultsList,
     super.key,
   });
-  final List<ResultTasks> resultsList;
+  final List<GridResultItems> resultsList;
 
   @override
   State<ResultListView> createState() => _ResultListViewState();
@@ -43,19 +44,24 @@ class _ResultListViewState extends State<ResultListView> {
       ),
       body: ListView.builder(
         itemBuilder: (context, index) => InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              Routes.resultInfoPageRoute,
+              arguments: widget.resultsList[index],
+            );
+          },
           child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(vertical: 20),
             decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: ColorsManager.lightGray,
+                  color: ColorsManager.lightGrey,
                 ),
               ),
             ),
             child: Text(
-              widget.resultsList[index].result.path,
+              widget.resultsList[index].path,
               style: TextStyles.titleSmall,
             ),
           ),

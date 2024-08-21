@@ -11,7 +11,6 @@ class DioFactory {
     dio.options = BaseOptions(
       baseUrl: baseUrl,
     );
-
     return dio;
   }
 }

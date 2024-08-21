@@ -1,10 +1,10 @@
 import 'dart:collection';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:webspark_test/data/responses/list_tasks_response.dart';
 import 'package:webspark_test/presentation/resources/colors_manager.dart';
 import 'package:webspark_test/presentation/resources/text_styles.dart';
-import 'package:http/http.dart' as http;
 
 void unFocus(BuildContext context) {
   if (FocusScope.of(context).hasFocus) {
@@ -55,7 +55,7 @@ bool isValidUrl(String url) {
 
 Future<bool> checkUrlSupportsGetParameters(String url) async {
   try {
-    final response = await http.get(Uri.parse('$url?test_param=test_value'));
+    final response = await Dio().get('$url?test_param=test_value');
 
     if (response.statusCode == 200) {
       return true;
@@ -68,16 +68,18 @@ Future<bool> checkUrlSupportsGetParameters(String url) async {
 }
 
 List<List<int>> convertGrid(List<String> stringGrid) {
-  final grid = stringGrid.map((row) {
+  return stringGrid.map((row) {
     return row.split('').map((char) {
       return char == 'X' ? -1 : 0;
     }).toList();
   }).toList();
-
-  return grid;
 }
 
-List<End> shortestPath(List<List<int>> grid, End start, End end) {
+List<End> calculateShortestPath({
+  required List<List<int>> grid,
+  required End start,
+  required End end,
+}) {
   try {
     List<End> directions = [
       End(x: 0, y: 1),

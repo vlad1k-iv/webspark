@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:webspark_test/core/di/di.dart';
-import 'package:webspark_test/data/requests/result_tasks_request.dart';
+import 'package:webspark_test/domain/model/models.dart';
 import 'package:webspark_test/presentation/home_page/bloc/home_page_cubit.dart';
 import 'package:webspark_test/presentation/home_page/home_page_view.dart';
 import 'package:webspark_test/presentation/loading_page/loading_page.dart';
+import 'package:webspark_test/presentation/result_info/result_info_view.dart';
 import 'package:webspark_test/presentation/result_list_page/result_list_view.dart';
 
 class Routes {
   static const String homePageRoute = '/homePage';
   static const String loadingPageRoute = '/loadingPage';
   static const String resultsPageRoute = '/resultsPage';
+  static const String resultInfoPageRoute = '/resultsInfoPage';
 }
 
 class RouteGenerator {
@@ -36,7 +38,13 @@ class RouteGenerator {
       case Routes.resultsPageRoute:
         return MaterialPageRoute<HomePageView>(
           builder: (_) => ResultListView(
-            resultsList: routeSettings.arguments as List<ResultTasks>,
+            resultsList: routeSettings.arguments as List<GridResultItems>,
+          ),
+        );
+      case Routes.resultInfoPageRoute:
+        return MaterialPageRoute<HomePageView>(
+          builder: (_) => ResultInfoView(
+            task: routeSettings.arguments as GridResultItems,
           ),
         );
 

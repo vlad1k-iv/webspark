@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:webspark_test/data/network/failure.dart';
 import 'package:webspark_test/data/requests/result_tasks_request.dart';
+import 'package:webspark_test/domain/model/models.dart';
 
 part 'home_page_state.freezed.dart';
 
@@ -11,7 +12,12 @@ class HomePageState with _$HomePageState {
     @Default(0) int percentIndicator,
     @Default(false) bool isReady,
     Failure? error,
-    @Default('https://flutter.webspark.dev/flutter/api') String url,
+    @Default('') String url,
     List<ResultTasks>? listResultTasks,
+    List<GridResultItems>? gridResultItems,
   }) = _HomePageState;
+}
+
+extension HomePageStateExtension on HomePageState {
+  bool get isUrlLengthValid => url.length > 8;
 }

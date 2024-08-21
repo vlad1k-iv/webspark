@@ -23,7 +23,7 @@ class TextStyles {
   static const TextStyle bodyMedium = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: ColorsManager.darkGray,
+    color: ColorsManager.darkGrey,
   );
 
   static const TextStyle bodySmall = TextStyle(

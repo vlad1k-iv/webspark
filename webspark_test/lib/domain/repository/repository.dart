@@ -8,6 +8,6 @@ abstract class Repository {
   Future<Either<Failure, ListTasks>> getListTasks();
 
   Future<Either<Failure, ResultTasksResponse>> resultTasks(
-    List<ResultTasks> tasks,
+    List<ResultTasks> input,
   );
 }

@@ -24,7 +24,7 @@ class _LoadingPageState extends State<LoadingPage> {
       final cubit = context.read<HomePageCubit>();
 
       return IgnorePointer(
-        ignoring: !state.isReady,
+        ignoring: state.isLoading,
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -94,11 +94,14 @@ class _LoadingPageState extends State<LoadingPage> {
                         width: context.screenWidth - 32,
                         child: AppElevatedButton(
                           onTap: () {
-                            cubit.sendResult(() {
+                            cubit.sendResult(onSuccess: () {
                               Navigator.of(context).pushNamed(
                                 Routes.resultsPageRoute,
-                                arguments: state.listResultTasks,
+                                arguments: state.gridResultItems,
                               );
+                            }, onError: () {
+                              cubit.onPop();
+                              Navigator.of(context).pop();
                             });
                           },
                           text: 'Send results to server',
