@@ -59,7 +59,7 @@ class _LoadingPageState extends State<LoadingPage> {
                   children: [
                     const Spacer(),
                     Text(
-                      !state.isReady
+                      state.isLoading
                           ? 'Please wait...'
                           : 'All calculations has finished, you can send your results to server',
                       style: TextStyles.bodyMedium,
